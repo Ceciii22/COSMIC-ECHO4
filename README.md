@@ -1,1 +1,251 @@
-# COSMIC-ECHO4
+# COSMIC-ECHO4 <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Moebius Cosmic Tarot Archive</title>
+
+<style>
+/* ================================
+   GLOBAL COSMIC UI & COLORS
+================================ */
+body {
+    margin: 0;
+    background: radial-gradient(circle at 30% 20%, #1a1e45, #0a0f1e 70%);
+    font-family: "Raleway", sans-serif;
+    color: #f0f0f7;
+    overflow-x: hidden;
+}
+
+h1, h2, h3 {
+    font-family: "Cinzel", serif;
+}
+
+section {
+    padding: 60px 20px;
+    max-width: 1200px;
+    margin: auto;
+}
+
+/* Cosmic starfield */
+#starfield {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: -1;
+}
+.star {
+    position: absolute;
+    background: white;
+    border-radius: 50%;
+    opacity: 0.5;
+    animation: twinkle 4s infinite;
+}
+@keyframes twinkle {
+    0%,100% {opacity: .2;}
+    50% {opacity: 1;}
+}
+
+/* Hero Section */
+.hero {
+    text-align: center;
+    padding: 140px 20px;
+}
+.hero-title {
+    font-size: 3rem;
+    margin-bottom: 15px;
+    text-shadow: 0 0 40px rgba(160,140,255,0.4);
+}
+.hero-sub {
+    opacity: 0.8;
+    max-width: 650px;
+    margin: auto;
+    font-size: 1.1rem;
+}
+.cta {
+    margin-top: 40px;
+    padding: 15px 42px;
+    background: linear-gradient(135deg,#7e6bff,#e8c88a);
+    border: none;
+    color: #0a0f1e;
+    border-radius: 40px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: 0.3s;
+    box-shadow: 0 0 20px rgba(140,120,250,0.4);
+}
+.cta:hover {
+    transform: scale(1.05);
+}
+
+/* 78 Card Grid */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(320px,1fr));
+    gap: 24px;
+}
+
+.card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.1);
+    backdrop-filter: blur(14px);
+    padding: 20px;
+    border-radius: 16px;
+    transition: 0.3s;
+}
+.card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 0 30px rgba(170,150,255,0.2);
+}
+.card h2 {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+.prompt {
+    white-space: pre-wrap;
+    line-height: 1.6;
+    color: #cfcfe0;
+    opacity: 0.85;
+}
+
+/* AI Reader Section */
+.reader {
+    background: rgba(255,255,255,0.03);
+    padding: 40px;
+    border-radius: 20px;
+    border: 1px solid rgba(255,255,255,0.1);
+    line-height: 1.7;
+    box-shadow: 0 0 30px rgba(140,120,255,0.15);
+}
+.reader h3 {
+    color: #e8c88a;
+}
+</style>
+</head>
+
+<body>
+
+<div id="starfield"></div>
+
+<script>
+// starfield setup
+const sf = document.getElementById("starfield");
+for(let i=0;i<130;i++){
+    let s=document.createElement("div");
+    s.className="star";
+    s.style.width=s.style.height=(Math.random()*3+1)+"px";
+    s.style.left=Math.random()*100+"%";
+    s.style.top=Math.random()*100+"%";
+    s.style.animationDelay=(Math.random()*3)+"s";
+    sf.appendChild(s);
+}
+</script>
+
+<!-- ================================
+     HERO
+================================ -->
+<section class="hero">
+  <h1 class="hero-title">Enter the Cosmic Archive</h1>
+  <p class="hero-sub">A Moebius‑style AI Tarot journey through dreamlike deserts, cosmic temples, and symbolic emotional landscapes.</p>
+  <button class="cta" onclick="document.getElementById('gallery').scrollIntoView({behavior:'smooth'})">
+    Draw From the Unknown
+  </button>
+</section>
+
+<!-- ================================
+     78 CARD PROMPT GALLERY
+================================ -->
+<section id="gallery">
+  <h2 style="text-align:center; margin-bottom:40px;">Moebius Tarot — 78 Cosmic Prompts</h2>
+  <div class="grid" id="tarotGrid"></div>
+</section>
+
+<script>
+/* UNIVERSAL STYLE */
+const baseStyle = `
+surreal philosophical sci-fi tarot illustration,
+dreamlike cosmic environment,
+elegant thin linework,
+mysterious futuristic architecture,
+symbolic storytelling,
+contemplative emotional atmosphere,
+cinematic composition,
+soft pastel palette,
+clean ink outlines,
+retro-futuristic fantasy,
+AI spiritual tarot aesthetic,
+3:4 aspect ratio
+`;
+
+/* ALL 78 CARDS (Excerpted format — AI will complete during build) */
+const cards = [
+  { name:"0 The Fool", prompt:`A lone traveler at the edge of a floating cosmic cliff under two moons, glowing artifact in hand, giant alien birds, innocence and curiosity, ${baseStyle}` },
+  { name:"I The Magician", prompt:`Cosmic alchemist in ancient futuristic temple, holographic tools floating around, spiritual intelligence, ${baseStyle}` },
+  { name:"II The High Priestess", prompt:`Silent oracle between colossal cosmic pillars, moonlit dream architecture, hidden gateways, ${baseStyle}` },
+  { name:"III The Empress", prompt:`Cosmic mother in bio-organic floating garden, surreal vegetation, nurturing abundance, ${baseStyle}` },
+  { name:"IV The Emperor", prompt:`Galactic ruler on geometric throne, monumental architecture, philosophical order, ${baseStyle}` },
+  { name:"V The Hierophant", prompt:`Spiritual teacher transmitting luminous symbols inside sacred futuristic cathedral, ${baseStyle}` },
+  { name:"VI The Lovers", prompt:`Two luminous beings connected by energy bridge in cosmic valley, transcendent union, ${baseStyle}` },
+  { name:"VII The Chariot", prompt:`Traveler piloting biomechanical star‑chariot over desert planets, ${baseStyle}` },
+  { name:"VIII Strength", prompt:`Figure calming lion made of starlight, serene cosmic courage, ${baseStyle}` },
+  { name:"IX The Hermit", prompt:`Wanderer holding lantern atop crystalline mountain beneath infinite galaxies, ${baseStyle}` },
+  { name:"X Wheel of Fortune", prompt:`Massive cosmic wheel turning through destiny nebula, ${baseStyle}` },
+  { name:"XI Justice", prompt:`Ethereal judge balancing planets in symmetry, ${baseStyle}` },
+  { name:"XII The Hanged Man", prompt:`Enlightened figure suspended in cosmic void, transcendence and stillness, ${baseStyle}` },
+  { name:"XIII Death", prompt:`Transformation figure in alien wasteland, rebirth through starlight, ${baseStyle}` },
+  { name:"XIV Temperance", prompt:`Angelic form pouring luminous liquid between futuristic vessels, ${baseStyle}` },
+  { name:"XV The Devil", prompt:`Technological temptation, glowing chains, surreal psychological symbolism, ${baseStyle}` },
+  { name:"XVI The Tower", prompt:`Cosmic tower collapsing under lightning storm, awakening through upheaval, ${baseStyle}` },
+  { name:"XVII The Star", prompt:`Celestial woman pouring liquid light into cosmic lake beneath constellations, renewal, ${baseStyle}` },
+  { name:"XVIII The Moon", prompt:`Mysterious lunar desert, psychic pathways, dream creatures, ${baseStyle}` },
+  { name:"XIX The Sun", prompt:`Radiant cosmic child under giant surreal sun, illumination and vitality, ${baseStyle}` },
+  { name:"XX Judgement", prompt:`Souls awakening from crystal pods beneath celestial signal, ${baseStyle}` },
+  { name:"XXI The World", prompt:`Cosmic dancer inside sacred geometric portal, universal completion, ${baseStyle}` },
+];
+
+/* AUTO‑GENERATE MINOR ARCANA */
+const suits=["Wands","Cups","Swords","Pentacles"];
+const courts=["Page","Knight","Queen","King"];
+
+suits.forEach(suit=>{
+  for(let i=1;i<=10;i++){
+    cards.push({
+      name:`${i} of ${suit}`,
+      prompt:`Moebius-style ${suit.toLowerCase()} symbolism, surreal cosmic environment, ${baseStyle}`
+    });
+  }
+  courts.forEach(rank=>{
+    cards.push({
+      name:`${rank} of ${suit}`,
+      prompt:`${rank.toLowerCase()} archetype of ${suit.toLowerCase()}, cosmic character design, ${baseStyle}`
+    });
+  });
+});
+
+/* RENDER GRID */
+const grid=document.getElementById("tarotGrid");
+cards.forEach(card=>{
+  let div=document.createElement("div");
+  div.className="card";
+  div.innerHTML=`
+    <h2>${card.name}</h2>
+    <div class="prompt">${card.prompt}</div>
+  `;
+  grid.appendChild(div);
+});
+</script>
+
+<!-- ================================
+     AI READER
+================================ -->
+<section>
+  <div class="reader">
+    <h3>AI Tarot Reader — A Quiet Conversation Beneath the Stars</h3>
+    <p>This reader interprets symbolically rather than predicting fate.  
+    It helps you explore emotional patterns, personal growth, relationship dynamics, and subconscious forces — with a calm, reflective, psychologically grounded tone.</p>
+  </div>
+</section>
+
+</body>
+</html>
